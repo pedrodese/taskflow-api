@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: taskdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Montando o script de inicialização
+    networks:
+      - task_network
+
+  app:
+    build:
+      context: .
+    container_name: task_app
+    environment:
+      - DB_HOST=db
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_NAME=taskdb
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - task_network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  task_network:
+    driver: bridge
