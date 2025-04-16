@@ -35,7 +35,7 @@ O PostgreSQL já está configurado no docker-compose.yml para rodar com a imagem
 Um arquivo init.sql é montado no contêiner para garantir que a extensão uuid-ossp seja ativada no PostgreSQL. Esta extensão é necessária para gerar UUIDs automaticamente para os IDs das tarefas.
 
 ### Passo 3: Configurar Variáveis de Ambiente
-As variáveis de ambiente necessárias para a conexão com o banco de dados já estão configuradas no
+As variáveis de ambiente necessárias para a conexão com o banco de dados já estão configuradas no docker-compose.yml
 ```yaml
     version: "3.8"
     services:
